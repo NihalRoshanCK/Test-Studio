@@ -1,0 +1,81 @@
+{
+ "actions": [],
+ "creation": "2026-11-09 12:00:00.000000",
+ "modified": "2026-11-09 12:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "module": "Test Studio",
+ "name": "Test Pipeline Run Stage",
+ "field_order": [
+  "stage_name",
+  "suite",
+  "status",
+  "total",
+  "passed",
+  "failed",
+  "duration_ms"
+ ],
+ "fields": [
+  {
+   "fieldname": "stage_name",
+   "fieldtype": "Data",
+   "label": "Stage",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "suite",
+   "fieldtype": "Link",
+   "label": "Suite",
+   "options": "Test Suite",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nRunning\nPassed\nFailed\nSkipped",
+   "default": "Pending",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Int",
+   "label": "Total",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "passed",
+   "fieldtype": "Int",
+   "label": "Passed",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "failed",
+   "fieldtype": "Int",
+   "label": "Failed",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "duration_ms",
+   "fieldtype": "Int",
+   "label": "ms",
+   "in_list_view": 1,
+   "columns": 1
+  }
+ ],
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "links": [],
+ "istable": 1,
+ "editable_grid": 1
+}

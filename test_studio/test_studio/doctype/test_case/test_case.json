@@ -1,0 +1,148 @@
+{
+ "actions": [],
+ "creation": "2026-11-09 12:00:00.000000",
+ "modified": "2026-11-09 12:50:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "module": "Test Studio",
+ "name": "Test Case",
+ "field_order": [
+  "title",
+  "suite",
+  "column_break_1",
+  "enabled",
+  "priority",
+  "tags_text",
+  "keep_going",
+  "data_rows",
+  "run_as",
+  "last_status",
+  "steps_section",
+  "steps",
+  "variables_section",
+  "variables"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "suite",
+   "fieldtype": "Link",
+   "label": "Suite",
+   "options": "Test Suite",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled",
+   "default": "1",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "priority",
+   "fieldtype": "Select",
+   "label": "Priority",
+   "options": "High\nMedium\nLow",
+   "default": "Medium",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "tags_text",
+   "fieldtype": "Data",
+   "label": "Tags",
+   "description": "Comma separated, e.g. smoke, login"
+  },
+  {
+   "fieldname": "keep_going",
+   "fieldtype": "Check",
+   "label": "Keep Going After a Failure"
+  },
+  {
+   "fieldname": "data_rows",
+   "fieldtype": "Code",
+   "label": "Data Rows (CSV)",
+   "options": "CSV",
+   "description": "A header line of variable names, then one line per run of the steps, e.g. vin,value / LGW1,24,886.42 (quote values with commas)."
+  },
+  {
+   "fieldname": "run_as",
+   "fieldtype": "Small Text",
+   "label": "Run As Users",
+   "description": "One user per line. 'Run as each user' runs this test signed in as each of them (login steps are skipped)."
+  },
+  {
+   "fieldname": "last_status",
+   "fieldtype": "Select",
+   "label": "Last Status",
+   "options": "\nPassed\nKnown Issue\nFailed\nError",
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "steps_section",
+   "fieldtype": "Section Break",
+   "label": "Steps"
+  },
+  {
+   "fieldname": "steps",
+   "fieldtype": "Table",
+   "label": "Steps",
+   "options": "Test Step"
+  },
+  {
+   "fieldname": "variables_section",
+   "fieldtype": "Section Break",
+   "label": "Variables",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "variables",
+   "fieldtype": "Table",
+   "label": "Variables",
+   "options": "Test Variable",
+   "description": "Override suite variables"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "links": [
+  {
+   "link_doctype": "Test Run",
+   "link_fieldname": "test_case"
+  }
+ ],
+ "autoname": "TC-.#####",
+ "title_field": "title",
+ "show_title_field_in_link": 1,
+ "search_fields": "title,suite"
+}

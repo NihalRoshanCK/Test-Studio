@@ -1,0 +1,89 @@
+{
+ "actions": [],
+ "creation": "2026-11-09 12:00:00.000000",
+ "modified": "2026-11-10 12:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "module": "Test Studio",
+ "name": "Test Run Step",
+ "field_order": [
+  "step_no",
+  "action",
+  "target",
+  "value",
+  "group",
+  "status",
+  "duration_ms",
+  "error",
+  "screenshot"
+ ],
+ "fields": [
+  {
+   "fieldname": "step_no",
+   "fieldtype": "Data",
+   "label": "#",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "action",
+   "fieldtype": "Data",
+   "label": "Action",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "target",
+   "fieldtype": "Data",
+   "label": "Target",
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "value",
+   "fieldtype": "Data",
+   "label": "Value"
+  },
+  {
+   "fieldname": "group",
+   "fieldtype": "Data",
+   "label": "Snippet"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Passed\nKnown Issue\nFailed\nSkipped",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "duration_ms",
+   "fieldtype": "Int",
+   "label": "ms",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "error",
+   "fieldtype": "Small Text",
+   "label": "Error",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "screenshot",
+   "fieldtype": "Attach Image",
+   "label": "Screenshot"
+  }
+ ],
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "links": [],
+ "istable": 1,
+ "editable_grid": 1
+}

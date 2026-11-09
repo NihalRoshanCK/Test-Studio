@@ -1,0 +1,68 @@
+{
+ "actions": [],
+ "creation": "2026-11-09 12:00:00.000000",
+ "modified": "2026-11-09 12:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "module": "Test Studio",
+ "name": "Test Pipeline",
+ "field_order": [
+  "title",
+  "description",
+  "stages_section",
+  "stages"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "stages_section",
+   "fieldtype": "Section Break",
+   "label": "Stages (run top to bottom)"
+  },
+  {
+   "fieldname": "stages",
+   "fieldtype": "Table",
+   "label": "Stages",
+   "options": "Test Pipeline Stage",
+   "reqd": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "links": [
+  {
+   "link_doctype": "Test Pipeline Run",
+   "link_fieldname": "pipeline"
+  }
+ ],
+ "autoname": "field:title",
+ "title_field": "title"
+}

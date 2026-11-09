@@ -1,0 +1,98 @@
+{
+ "actions": [],
+ "creation": "2026-11-09 12:00:00.000000",
+ "modified": "2026-11-10 12:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "module": "Test Studio",
+ "name": "Test Step",
+ "field_order": [
+  "action",
+  "selector",
+  "value",
+  "snippet",
+  "timeout_ms",
+  "continue_on_failure",
+  "known_issue",
+  "note",
+  "fingerprint"
+ ],
+ "fields": [
+  {
+   "fieldname": "action",
+   "fieldtype": "Select",
+   "label": "Action",
+   "options": "goto\nclick\ndblclick\nfill\ntype\npress\nselect\ncheck\nuncheck\nhover\nupload\nwait\nwait_for\nassert_visible\nassert_hidden\nassert_text\nassert_value\nassert_url\nassert_title\nassert_count\nstore_url\nstore_text\nscreenshot\nrun_snippet\nlogin\nlogout\nnew_doc\nset_field\nsave\nworkflow\nexpect_status\ncreate_from",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2,
+   "default": "set_field"
+  },
+  {
+   "fieldname": "selector",
+   "fieldtype": "Data",
+   "label": "Selector / URL",
+   "in_list_view": 1,
+   "columns": 3,
+   "description": "Playwright selector: css, text=Login, role=button[name=\"Save\"], #id. URL for goto. {{var}} allowed."
+  },
+  {
+   "fieldname": "value",
+   "fieldtype": "Small Text",
+   "label": "Value",
+   "in_list_view": 1,
+   "columns": 2,
+   "description": "Text to fill / key to press / expected text / ms to wait / variable name for store_*. {{var}} allowed."
+  },
+  {
+   "fieldname": "snippet",
+   "fieldtype": "Link",
+   "label": "Snippet",
+   "options": "Test Snippet",
+   "in_list_view": 1,
+   "columns": 2,
+   "depends_on": "eval:doc.action=='run_snippet'",
+   "mandatory_depends_on": "eval:doc.action=='run_snippet'"
+  },
+  {
+   "fieldname": "timeout_ms",
+   "fieldtype": "Int",
+   "label": "Timeout (ms)",
+   "description": "Overrides suite default"
+  },
+  {
+   "fieldname": "continue_on_failure",
+   "fieldtype": "Check",
+   "label": "Continue on Failure"
+  },
+  {
+   "fieldname": "known_issue",
+   "fieldtype": "Data",
+   "label": "Known Failure",
+   "description": "Text the failure must contain, e.g. 'Actual value: 9'. That failure is recorded as a Known Issue and the run carries on; any other failure still fails."
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Data",
+   "label": "Note",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "fingerprint",
+   "fieldtype": "Small Text",
+   "label": "Fingerprint",
+   "hidden": 1,
+   "description": "What the element looked like on the last passing run; used to heal a broken selector."
+  }
+ ],
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "links": [],
+ "istable": 1,
+ "editable_grid": 1
+}

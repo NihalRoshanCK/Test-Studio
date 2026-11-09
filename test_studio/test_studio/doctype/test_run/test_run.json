@@ -1,0 +1,166 @@
+{
+ "actions": [],
+ "creation": "2026-11-09 12:00:00.000000",
+ "modified": "2026-11-09 12:55:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "module": "Test Studio",
+ "name": "Test Run",
+ "field_order": [
+  "test_case",
+  "suite",
+  "column_break_1",
+  "status",
+  "browser",
+  "run_as",
+  "column_break_2",
+  "started_at",
+  "duration_ms",
+  "summary_section",
+  "results_html",
+  "error",
+  "details_section",
+  "steps",
+  "trace",
+  "video",
+  "pipeline_run"
+ ],
+ "fields": [
+  {
+   "fieldname": "test_case",
+   "fieldtype": "Link",
+   "label": "Test Case",
+   "options": "Test Case",
+   "reqd": 1,
+   "in_list_view": 1,
+   "read_only": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "suite",
+   "fieldtype": "Link",
+   "label": "Suite",
+   "options": "Test Suite",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Queued\nRunning\nPassed\nKnown Issue\nFailed\nError",
+   "default": "Queued",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "browser",
+   "fieldtype": "Data",
+   "label": "Browser",
+   "read_only": 1
+  },
+  {
+   "fieldname": "run_as",
+   "fieldtype": "Data",
+   "label": "Run As",
+   "options": "Email",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "started_at",
+   "fieldtype": "Datetime",
+   "label": "Started",
+   "read_only": 1
+  },
+  {
+   "fieldname": "duration_ms",
+   "fieldtype": "Int",
+   "label": "Duration (ms)",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "summary_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "results_html",
+   "fieldtype": "HTML",
+   "label": "Results"
+  },
+  {
+   "fieldname": "error",
+   "fieldtype": "Code",
+   "label": "Error",
+   "read_only": 1,
+   "depends_on": "eval:doc.status=='Error'"
+  },
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Step Details",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "steps",
+   "fieldtype": "Table",
+   "label": "Steps",
+   "options": "Test Run Step",
+   "read_only": 1
+  },
+  {
+   "fieldname": "trace",
+   "fieldtype": "Attach",
+   "label": "Trace (zip)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "video",
+   "fieldtype": "Attach",
+   "label": "Video",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pipeline_run",
+   "fieldtype": "Link",
+   "label": "Pipeline Run",
+   "options": "Test Pipeline Run",
+   "read_only": 1,
+   "in_standard_filter": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "links": [],
+ "autoname": "RUN-.#####",
+ "title_field": "test_case",
+ "in_create": 1
+}

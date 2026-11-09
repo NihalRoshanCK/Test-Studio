@@ -1,0 +1,59 @@
+{
+ "actions": [],
+ "creation": "2026-11-09 12:00:00.000000",
+ "modified": "2026-11-09 12:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "module": "Test Studio",
+ "name": "Test Pipeline Stage",
+ "field_order": [
+  "stage_name",
+  "suite",
+  "tag",
+  "stop_on_failure"
+ ],
+ "fields": [
+  {
+   "fieldname": "stage_name",
+   "fieldtype": "Data",
+   "label": "Stage",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "suite",
+   "fieldtype": "Link",
+   "label": "Suite",
+   "options": "Test Suite",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "tag",
+   "fieldtype": "Data",
+   "label": "Only Tag",
+   "in_list_view": 1,
+   "columns": 2,
+   "description": "Run only cases with this tag (blank = all)"
+  },
+  {
+   "fieldname": "stop_on_failure",
+   "fieldtype": "Check",
+   "label": "Stop Pipeline on Failure",
+   "default": "1",
+   "in_list_view": 1,
+   "columns": 2
+  }
+ ],
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "links": [],
+ "istable": 1,
+ "editable_grid": 1
+}

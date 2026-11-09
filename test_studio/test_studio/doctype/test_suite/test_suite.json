@@ -1,0 +1,219 @@
+{
+ "actions": [],
+ "creation": "2026-11-09 12:00:00.000000",
+ "modified": "2026-11-09 12:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "module": "Test Studio",
+ "name": "Test Suite",
+ "field_order": [
+  "title",
+  "base_url",
+  "column_break_1",
+  "browser",
+  "headless",
+  "default_timeout_ms",
+  "viewport_section",
+  "viewport_width",
+  "viewport_height",
+  "column_break_2",
+  "record_trace",
+  "record_video",
+  "screenshot_each_step",
+  "keep_going",
+  "read_only",
+  "read_only_allow",
+  "variables_section",
+  "variables",
+  "description",
+  "schedule_section",
+  "schedule",
+  "schedule_hour",
+  "schedule_weekday",
+  "last_scheduled_at",
+  "notify_users"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "base_url",
+   "fieldtype": "Data",
+   "label": "Base URL",
+   "options": "URL",
+   "in_list_view": 1,
+   "description": "Relative goto URLs (e.g. /login) are resolved against this"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "browser",
+   "fieldtype": "Select",
+   "label": "Browser",
+   "options": "chromium\nfirefox\nwebkit",
+   "default": "chromium",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "headless",
+   "fieldtype": "Check",
+   "label": "Headless",
+   "default": "1"
+  },
+  {
+   "fieldname": "default_timeout_ms",
+   "fieldtype": "Int",
+   "label": "Default Timeout (ms)",
+   "default": "10000"
+  },
+  {
+   "fieldname": "viewport_section",
+   "fieldtype": "Section Break",
+   "label": "Recording",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "viewport_width",
+   "fieldtype": "Int",
+   "label": "Viewport Width",
+   "default": "1280"
+  },
+  {
+   "fieldname": "viewport_height",
+   "fieldtype": "Int",
+   "label": "Viewport Height",
+   "default": "720"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "record_trace",
+   "fieldtype": "Check",
+   "label": "Record Playwright Trace",
+   "default": "1"
+  },
+  {
+   "fieldname": "record_video",
+   "fieldtype": "Check",
+   "label": "Record Video",
+   "description": "A video (WebM) of the whole run, played on the run report."
+  },
+  {
+   "fieldname": "screenshot_each_step",
+   "fieldtype": "Check",
+   "label": "Screenshot Every Step"
+  },
+  {
+   "fieldname": "keep_going",
+   "fieldtype": "Check",
+   "label": "Keep Going After a Failure",
+   "description": "Run every step of every test even after one fails; the run still ends Failed."
+  },
+  {
+   "fieldname": "read_only",
+   "fieldtype": "Check",
+   "label": "Read-only",
+   "description": "Block saves, submits, deletes and other writes from the browser. Use this to run against a live site."
+  },
+  {
+   "fieldname": "read_only_allow",
+   "fieldtype": "Small Text",
+   "label": "Also Allow (read-only)",
+   "depends_on": "read_only",
+   "description": "Method names, one per line, that only read but were blocked (they are listed on the step)."
+  },
+  {
+   "fieldname": "variables_section",
+   "fieldtype": "Section Break",
+   "label": "Variables"
+  },
+  {
+   "fieldname": "variables",
+   "fieldtype": "Table",
+   "label": "Variables",
+   "options": "Test Variable"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "fieldname": "schedule_section",
+   "fieldtype": "Section Break",
+   "label": "Schedule and alerts"
+  },
+  {
+   "fieldname": "schedule",
+   "fieldtype": "Select",
+   "label": "Run Automatically",
+   "options": "\nHourly\nDaily\nWeekly"
+  },
+  {
+   "fieldname": "schedule_hour",
+   "fieldtype": "Int",
+   "label": "At Hour (0-23)",
+   "default": "2",
+   "depends_on": "eval:['Daily','Weekly'].includes(doc.schedule)"
+  },
+  {
+   "fieldname": "schedule_weekday",
+   "fieldtype": "Select",
+   "label": "On",
+   "options": "Monday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday",
+   "depends_on": "eval:doc.schedule=='Weekly'"
+  },
+  {
+   "fieldname": "last_scheduled_at",
+   "fieldtype": "Datetime",
+   "label": "Last Scheduled Run",
+   "read_only": 1
+  },
+  {
+   "fieldname": "notify_users",
+   "fieldtype": "Small Text",
+   "label": "Tell These Users When a Run Fails",
+   "description": "One user (email) per line; they get a Frappe notification with a link to the run."
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "links": [
+  {
+   "link_doctype": "Test Case",
+   "link_fieldname": "suite"
+  },
+  {
+   "link_doctype": "Test Run",
+   "link_fieldname": "suite"
+  }
+ ],
+ "autoname": "field:title",
+ "title_field": "title"
+}
