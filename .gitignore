@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Node / frontend build tooling (the built app in test_studio/public/studio is committed: bench serves it as is)
+node_modules/
+frontend/dist/
+.eslintcache
+*.tsbuildinfo
+npm-debug.log*
+yarn-error.log*
+
+# Playwright output from local runs (run evidence lives in the site's files, not here)
+playwright-report/
+test-results/
+*.webm
+*.trace.zip
+
+# Tool caches, scratch work and plans that are not part of the app
+.impeccable/
+.claude/
+.superpowers/
+*.plan.md
+PLAN*.md
+NOTES*.md
+_[a-z]*.py
+*.log
+*.tmp
+*.bak
+*.orig
+
+# Editors and OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Local secrets, never in the repo
+*.env
+.env*
