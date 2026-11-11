@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Test Studio</title>
+	<link rel="icon" href="/assets/test_studio/studio/favicon.svg" type="image/svg+xml">
+	{% for css in styles %}<link rel="stylesheet" href="/assets/test_studio/studio/{{ css }}">{% endfor %}
+	<script>
+		window.csrf_token = {{ csrf_token | tojson }};
+		window.studio_boot = {{ boot | tojson }};
+		try { if (localStorage.getItem("ts-theme") === "dark" || (!localStorage.getItem("ts-theme") && matchMedia("(prefers-color-scheme: dark)").matches)) document.documentElement.classList.add("dark"); } catch (e) {}
+	</script>
+</head>
+<body>
+	<div id="app"></div>
+	<script type="module" src="/assets/test_studio/studio/{{ script }}"></script>
+</body>
+</html>
