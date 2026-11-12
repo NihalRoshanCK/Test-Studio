@@ -1,0 +1,52 @@
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* QCS Flow look: Frappe's neutral greys and Inter, so Test Studio sits next to the desk and QCS Flow;
+   one accent (the QCS violet) for what is selected, active or focused; status colours only for results. */
+:root {
+	--paper: 255 255 255; --panel: 255 255 255; --menu: 248 248 248; --sunk: 243 243 243; --line: 233 233 233;
+	--ink: 23 23 23; --muted: 102 102 102; --faint: 153 153 153;
+	--brand: 109 74 255; --brand-ink: 255 255 255;
+	--pass: 22 163 74; --fail: 220 38 38; --warn: 217 119 6; --rec: 229 72 77; --run: 36 144 239;
+	color-scheme: light;
+}
+.dark {
+	--paper: 17 17 17; --panel: 23 23 23; --menu: 20 20 20; --sunk: 38 38 38; --line: 46 46 46;
+	--ink: 240 240 240; --muted: 168 168 168; --faint: 115 115 115;
+	--brand: 155 134 255; --brand-ink: 17 17 17;
+	--pass: 74 222 128; --fail: 248 113 113; --warn: 251 191 36; --rec: 248 113 113; --run: 96 165 250;
+	color-scheme: dark;
+}
+html, body, #app { height: 100%; }
+body { @apply bg-paper text-ink font-sans text-sm antialiased; font-feature-settings: "cv11", "ss01"; }
+:where(a, button, input, select, textarea, [tabindex]):focus-visible { outline: 2px solid rgb(var(--brand)); outline-offset: 2px; border-radius: 4px; }
+::selection { background: rgb(var(--brand) / 0.18); }
+.tnum { font-variant-numeric: tabular-nums; }
+
+@layer components {
+	/* every page opens the same way: a title, one line on what it is, actions to the right */
+	.page-title { @apply text-[22px] font-semibold leading-tight tracking-[-0.01em] text-ink; }
+	.page-sub { @apply mt-1 max-w-2xl text-sm text-muted; }
+	.btn { @apply inline-flex h-8 select-none items-center gap-1.5 whitespace-nowrap rounded-md px-3 text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-40; }
+	.btn-primary { @apply btn bg-ink text-panel hover:bg-ink/85; }
+	.btn-ghost { @apply btn text-ink hover:bg-sunk; }
+	.btn-outline { @apply btn bg-sunk text-ink hover:bg-line; }
+	.btn-danger { @apply btn bg-fail text-white hover:bg-fail/90; }
+	.icon-btn { @apply inline-flex h-8 w-8 items-center justify-center rounded-md text-muted transition-colors hover:bg-sunk hover:text-ink disabled:pointer-events-none disabled:opacity-30; }
+	/* frappe-ui's quiet input: grey fill, no border until focus */
+	.field { @apply h-8 w-full min-w-0 rounded-md border border-transparent bg-sunk px-2.5 text-sm text-ink transition-colors placeholder:text-faint hover:bg-line/70 focus:border-line focus:bg-panel focus:shadow-sm focus:outline-none; }
+	.field-mono { @apply field font-mono text-xs; }
+	.label { @apply mb-1.5 block text-xs font-medium text-muted; }
+	.kbd { @apply inline-flex h-5 items-center rounded border border-line bg-sunk px-1.5 font-mono text-2xs text-muted; }
+	.nav-item { @apply relative flex h-8 items-center gap-2 rounded-md px-2 text-sm text-ink/80 transition-colors hover:bg-sunk; }
+	.nav-item-active { @apply bg-panel font-medium text-ink shadow-sm ring-1 ring-line before:absolute before:-left-3 before:top-1.5 before:h-5 before:w-[3px] before:rounded-r before:bg-brand; }
+	.pill { @apply inline-flex h-8 items-center gap-1 rounded-md bg-sunk px-2.5 text-sm text-muted hover:bg-line/70; }
+	.table-card { @apply overflow-hidden rounded-lg border border-line bg-panel; }
+	.table-head { @apply border-b border-line text-left text-xs font-medium text-muted; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
