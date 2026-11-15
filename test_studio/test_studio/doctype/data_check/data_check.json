@@ -1,0 +1,98 @@
+{
+ "actions": [],
+ "creation": "2026-11-13 12:00:00.000000",
+ "modified": "2026-11-13 12:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "module": "Test Studio",
+ "name": "Data Check",
+ "field_order": [
+  "title",
+  "enabled",
+  "report",
+  "filters",
+  "max_rows",
+  "description",
+  "last_status",
+  "last_row_count"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled",
+   "default": "1",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "report",
+   "fieldtype": "Link",
+   "label": "Report",
+   "options": "Report",
+   "reqd": 1,
+   "in_list_view": 1,
+   "description": "Any report. The check counts its rows (a total row is ignored)."
+  },
+  {
+   "fieldname": "filters",
+   "fieldtype": "Code",
+   "label": "Filters",
+   "options": "JSON",
+   "description": "JSON, e.g. {\"company\": \"My Company\", \"as_on_date\": \"{{today}}\"}. {{today}} becomes the run date."
+  },
+  {
+   "fieldname": "max_rows",
+   "fieldtype": "Int",
+   "label": "Max Rows",
+   "default": "0",
+   "description": "Passes while the report has at most this many rows. 0 means it must be empty."
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "What it guards"
+  },
+  {
+   "fieldname": "last_status",
+   "fieldtype": "Select",
+   "label": "Last Status",
+   "options": "\nPassed\nFailed\nError",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "last_row_count",
+   "fieldtype": "Int",
+   "label": "Last Row Count",
+   "read_only": 1
+  }
+ ],
+ "states": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "autoname": "field:title",
+ "title_field": "title",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "share": 1
+  }
+ ]
+}
