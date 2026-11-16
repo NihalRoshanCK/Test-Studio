@@ -1,0 +1,97 @@
+{
+ "actions": [],
+ "creation": "2026-11-14 12:00:00.000000",
+ "modified": "2026-11-14 12:00:00.000000",
+ "modified_by": "Administrator",
+ "owner": "Administrator",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "module": "Test Studio",
+ "name": "Test Studio Settings",
+ "issingle": 1,
+ "field_order": [
+  "retention_section",
+  "keep_runs_per_test",
+  "delete_runs_after_days",
+  "defaults_section",
+  "new_suite_timeout_ms",
+  "new_suite_record_trace",
+  "new_suite_record_video",
+  "new_suite_screenshot_each_step",
+  "mcp_section",
+  "mcp_url"
+ ],
+ "fields": [
+  {
+   "fieldname": "retention_section",
+   "fieldtype": "Section Break",
+   "label": "Keeping old runs"
+  },
+  {
+   "fieldname": "keep_runs_per_test",
+   "fieldtype": "Int",
+   "label": "Keep Last Runs Per Test",
+   "default": "50",
+   "description": "Older runs of a test are deleted, with their screenshots, traces and videos. 0: keep all."
+  },
+  {
+   "fieldname": "delete_runs_after_days",
+   "fieldtype": "Int",
+   "label": "Delete Runs Older Than (days)",
+   "default": "90",
+   "description": "0: never by age."
+  },
+  {
+   "fieldname": "defaults_section",
+   "fieldtype": "Section Break",
+   "label": "New suites start with"
+  },
+  {
+   "fieldname": "new_suite_timeout_ms",
+   "fieldtype": "Int",
+   "label": "Default Timeout (ms)",
+   "default": "10000"
+  },
+  {
+   "fieldname": "new_suite_record_trace",
+   "fieldtype": "Check",
+   "label": "Record Trace",
+   "default": "1"
+  },
+  {
+   "fieldname": "new_suite_record_video",
+   "fieldtype": "Check",
+   "label": "Record Video",
+   "default": "0"
+  },
+  {
+   "fieldname": "new_suite_screenshot_each_step",
+   "fieldtype": "Check",
+   "label": "Screenshot After Every Step",
+   "default": "0"
+  },
+  {
+   "fieldname": "mcp_section",
+   "fieldtype": "Section Break",
+   "label": "MCP server"
+  },
+  {
+   "fieldname": "mcp_url",
+   "fieldtype": "Data",
+   "label": "MCP HTTP Address",
+   "default": "http://127.0.0.1:8765/mcp",
+   "description": "Where Test Studio's MCP server listens in HTTP mode (shown as running or not)."
+  }
+ ],
+ "states": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  }
+ ]
+}
