@@ -45,7 +45,7 @@ ELEMENT_INFO_JS = r"""
 		range: 'slider', number: 'spinbutton', search: 'searchbox' };
 	const role = el.getAttribute('role') ||
 		({ BUTTON: 'button', SELECT: 'combobox', TEXTAREA: 'textbox', SUMMARY: 'button',
-		   H1: 'heading', H2: 'heading', H3: 'heading', H4: 'heading', IMG: 'img' }[tag]) ||
+			H1: 'heading', H2: 'heading', H3: 'heading', H4: 'heading', IMG: 'img' }[tag]) ||
 		(tag === 'A' && el.hasAttribute('href') ? 'link' : null) ||
 		(tag === 'INPUT' ? inputRole[el.type] || 'textbox' : null);
 	const label = el.labels && el.labels[0] ? el.labels[0].innerText : '';
@@ -120,7 +120,10 @@ def spawn(method, **kwargs):
 	if method not in SPAWNABLE:
 		frappe.throw("Not allowed")
 	bench = get_bench_path()
-	with open(os.path.join(bench, "logs", "test_studio_live.log"), "ab") as log:
+	path = os.path.join(bench, "logs", "test_studio_live.log")
+	if os.path.exists(path) and os.path.getsize(path) > 5 * 1024 * 1024:  # keep one old file of 5 MB, no more
+		os.replace(path, path + ".1")
+	with open(path, "ab") as log:
 		subprocess.Popen(
 			[sys.executable, "-m", "test_studio.studio", frappe.local.site, frappe.session.user, method, json.dumps(kwargs)],
 			cwd=os.path.join(bench, "sites"),
@@ -209,7 +212,7 @@ class Session:
 	def __init__(self, sid, page, base_url):
 		self.sid, self.page, self.base_url = sid, page, (base_url or "").rstrip("/")
 		self.state = {"status": "ready", "mode": "interact", "recording": True, "steps": [], "seq": 0,
-		              "picked": None, "select_prompt": None, "highlight": None, "notice": None, "error": None}
+			"picked": None, "select_prompt": None, "highlight": None, "notice": None, "error": None}
 		self.frame_seq = 0
 
 	def save(self):
@@ -660,6 +663,8 @@ def _mcp_status(url):
 
 	if not url:
 		return "not set"
+	if not url.startswith(("http://", "https://")):
+		return "invalid address (http or https only)"
 	try:
 		urllib.request.urlopen(urllib.request.Request(url, method="GET"), timeout=2)
 		return "running"

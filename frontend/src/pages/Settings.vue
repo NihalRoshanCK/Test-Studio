@@ -39,7 +39,7 @@ onMounted(load);
 
 			<form v-if="s" class="mt-6 space-y-6" @submit.prevent="save">
 				<section class="table-card">
-					<div class="table-head px-4 py-2.5">Keeping old runs</div>
+					<div class="table-head px-4 py-2.5">Runs</div>
 					<div class="grid gap-4 p-4 sm:grid-cols-2">
 						<label><span class="label">Keep the last runs of each test</span>
 							<input v-model.number="s.keep_runs_per_test" type="number" min="0" class="field" />
@@ -47,6 +47,9 @@ onMounted(load);
 						<label><span class="label">Delete runs older than (days)</span>
 							<input v-model.number="s.delete_runs_after_days" type="number" min="0" class="field" />
 							<span class="mt-1 block text-xs text-muted">0: never by age.</span></label>
+						<label><span class="label">Most runs at once</span>
+							<input v-model.number="s.max_parallel_runs" type="number" min="1" class="field" />
+							<span class="mt-1 block text-xs text-muted">Runs started by agents or for debugging each open a browser.</span></label>
 					</div>
 					<div class="flex flex-wrap items-center justify-between gap-3 border-t border-line px-4 py-3 text-sm sm:flex-nowrap">
 						<span class="min-w-0 text-muted">{{ s.run_count ?? '–' }} runs kept now. Old runs go every night, with their screenshots, traces and videos.</span>

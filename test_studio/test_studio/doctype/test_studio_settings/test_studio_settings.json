@@ -13,6 +13,7 @@
   "retention_section",
   "keep_runs_per_test",
   "delete_runs_after_days",
+  "max_parallel_runs",
   "defaults_section",
   "new_suite_timeout_ms",
   "new_suite_record_trace",
@@ -40,6 +41,13 @@
    "label": "Delete Runs Older Than (days)",
    "default": "90",
    "description": "0: never by age."
+  },
+  {
+   "fieldname": "max_parallel_runs",
+   "fieldtype": "Int",
+   "label": "Most Runs at Once",
+   "default": "3",
+   "description": "Runs outside the worker queue (agents, MCP, debugging) each open a browser (~300-500 MB). More are refused until one finishes."
   },
   {
    "fieldname": "defaults_section",
