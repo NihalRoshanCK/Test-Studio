@@ -4,6 +4,28 @@ All notable changes to Test Studio. The format follows [Keep a Changelog](https:
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-17
+
+### Security
+- `login` steps check the password on the server and hand the browser a session: passwords are no longer typed in
+  the page, so they no longer end up in Playwright traces or videos. Traces made before this release can contain the
+  password typed at login; delete them if they may have been shared.
+
+### Changed
+- **Blocking email and SMS is now opt-in per site** (`test_studio_block_outgoing: 1` in site config). Before, installing
+  Test Studio stopped all of a site's email and SMS. Test copies that relied on it must set the flag.
+- The Desk apps-screen tile shows only to users who can open Test Studio.
+
+### Added
+- The **Test Studio User** role: write and run tests without being a System Manager.
+- **Most runs at once** (Settings, default 3): runs outside the worker queue are refused beyond the limit. Runs stuck
+  as Running for over an hour do not count.
+
+### Fixed
+- The MCP status check on the Settings page accepts only http and https addresses.
+- `logs/test_studio_live.log` is rotated at 5 MB instead of growing forever.
+- Tabs-only indentation where spaces were mixed in.
+
 ## [0.1.0] - 2026-11-17
 
 ### Added

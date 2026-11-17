@@ -122,19 +122,41 @@ env/bin/python -m playwright install --with-deps chromium   # add firefox / webk
 bench build --app test_studio
 ```
 
-Open **/studio**, or the Test Studio tile on the Desk apps screen. Runs use the `long` queue, so a worker must be
-running (`bench start` in development). Scheduled suites and nightly checks need the site's scheduler
+Open **/studio**, or the Test Studio tile on the Desk apps screen. Give testers the **Test Studio User** role; they
+do not need to be System Managers. Data checks, Settings and *Run as each user* stay System Manager only.
+
+**Testing on a copy of production data?** Stop the copy from emailing or texting real people:
+
+```bash
+bench --site <test-site> set-config test_studio_block_outgoing 1
+```
+
+Email is then muted (it still queues, so you can read it in Email Queue) and SMS is logged instead of sent. Without
+this setting Test Studio leaves the site's email and SMS alone, so it is safe to install on a live site.
+
+Runs use the `long` queue, so a worker must be running (`bench start` in development); in production give test runs
+a worker of their own. Scheduled suites and nightly checks need the site's scheduler
 (`bench --site <site> enable-scheduler`).
 
 Want something to play with? `bench --site <site> execute test_studio.demo.create` adds a demo suite and pipeline
 against the Playwright TodoMVC page.
+
+## Security notes
+
+- A `login` step checks the password on the server and gives the browser a session, so passwords are never typed
+  into the page and never appear in a trace or video. A `fill` step that types a secret into some other field is
+  recorded in the trace like any other input: prefer `login`, and treat traces as sensitive.
+- Runs started outside the worker queue (agents, MCP, debugging) each start a browser. **Settings → Most runs at
+  once** limits them (3 by default).
+- The MCP HTTP server listens on 127.0.0.1 and needs its token. It acts with its API key user's permissions.
 
 ## Configure
 
 | What | Where |
 |---|---|
 | Site, browser, timeout, viewport, trace, video, screenshots, read-only, keep going, schedule, alerts, variables | **Suite settings** (a suite's ⚙, or a test's ⋯ menu) |
-| Retention, defaults for new suites, MCP status | **Settings** (`/studio/settings`) |
+| Retention, most runs at once, defaults for new suites, MCP status | **Settings** (`/studio/settings`) |
+| Block email and SMS on a test copy | `bench --site <site> set-config test_studio_block_outgoing 1` |
 | Known failure, timeout, keep going for a single step | The step's *advanced options* |
 | MCP server address, API key, HTTP token | `~/.config/test-studio/mcp.env` (`TEST_STUDIO_URL`, `TEST_STUDIO_API_KEY`, `TEST_STUDIO_API_SECRET`, `TEST_STUDIO_MCP_TOKEN`) |
 | Start the HTTP MCP server with bench | A Procfile line: `test_studio_mcp: ./env/bin/python apps/test_studio/mcp/test_studio_mcp.py --http --port 8765` |
