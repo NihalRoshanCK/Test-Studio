@@ -214,7 +214,7 @@ def step_timeout(step, default_timeout):
 	return max(timeout, NAV_MIN_MS) if step.get("action") in NAV_ACTIONS else timeout
 
 
-def run_step(page, step, variables, base_url, default_timeout):
+def run_step(page, step, variables, base_url, default_timeout, login=None):
 	"""Execute one step against a Playwright sync Page. Raises on failure."""
 	from playwright.sync_api import expect
 
@@ -283,7 +283,7 @@ def run_step(page, step, variables, base_url, default_timeout):
 		case "screenshot":
 			pass  # the caller captures a screenshot for this action
 		case "login":
-			frappe_login(page, base_url, sel, val, timeout)
+			frappe_login(page, base_url, sel, val, timeout, login)
 		case "logout":
 			page.context.clear_cookies()  # a test-run logout; the UI logout needs a confirm dialog
 			page.goto(resolve_url(base_url, "/login"), timeout=timeout)
@@ -349,8 +349,19 @@ def _wait_form(page, timeout):
 	page.locator(".frappe-control[data-fieldname]:visible").first.wait_for(timeout=timeout)
 
 
-def frappe_login(page, base_url, user, password, timeout):
+def frappe_login(page, base_url, user, password, timeout, login=None):
+	"""login(user, password) -> sid, when given, checks the password on the server and returns a session: the
+	password never goes through the browser, so it cannot end up in a trace or a video. Without it the login page
+	is filled in (outside a Frappe site, e.g. unit tests)."""
 	page.context.clear_cookies()
+	if login:
+		try:
+			sid = login(user, password)
+		except Exception as e:
+			raise StepError(f"Login failed for {user}: {str(e) or type(e).__name__}") from None
+		page.context.add_cookies([{"name": "sid", "value": sid, "url": resolve_url(base_url, "/")}])
+		page.goto(resolve_url(base_url, "/desk"), timeout=timeout)
+		return
 	page.goto(resolve_url(base_url, "/login"), timeout=timeout)
 	page.locator("#login_email").fill(user, timeout=timeout)
 	page.locator("#login_password").fill(password, timeout=timeout)
@@ -508,7 +519,8 @@ def run_case(steps, variables, secrets, settings, on_step, live=None):
 	settings keys: browser, headless, base_url, default_timeout_ms, viewport_width,
 	viewport_height, record_trace, screenshot_each_step, read_only (block writes from the browser),
 	session ({"user", "sid"}: start signed in as that user; login steps are then skipped),
-	keep_going (do not stop at a failure), record_video.
+	keep_going (do not stop at a failure), record_video, login_session (fn(user, password) -> sid: log in
+	without typing the password in the browser).
 	on_step(result: dict, screenshot: bytes | None) is called after every step; a passing step on an element
 	carries result["fingerprint"], and a healed one result["healed"] (the selector that worked).
 	live(event, step_no, page) is called with "before"/"after" around each step and "done" at the end;
@@ -573,7 +585,7 @@ def run_case(steps, variables, secrets, settings, on_step, live=None):
 					fp = _fingerprint(page, step, variables, timeout)
 					if fp is False:  # already waited the full timeout; don't wait again in run_step
 						raise StepError(f"Timed out after {timeout / 1000:.0f}s waiting for {result['target']}")
-					run_step(page, step, variables, settings.get("base_url"), default_timeout)
+					run_step(page, step, variables, settings.get("base_url"), default_timeout, settings.get("login_session"))
 					result["status"] = "Passed"
 					if fp:
 						result["fingerprint"] = fp

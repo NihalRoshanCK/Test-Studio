@@ -35,7 +35,9 @@ class TestPure(unittest.TestCase):
 		self.assertEqual(flat[0][1]["_group"], "Login")
 
 	def test_keep_going_covers_snippet_steps(self):
-		load = lambda name: [{"action": "click", "selector": "#a"}, {"action": "click", "selector": "#b"}]
+		def load(name):
+			return [{"action": "click", "selector": "#a"}, {"action": "click", "selector": "#b"}]
+
 		steps = engine.expand_steps([{"action": "run_snippet", "snippet": "S", "continue_on_failure": 1},
 			{"action": "run_snippet", "snippet": "S"}], load)
 		self.assertEqual([bool(st.get("continue_on_failure")) for _n, st in steps], [True, True, False, False])
@@ -78,7 +80,7 @@ class TestPure(unittest.TestCase):
 
 	def test_export_hides_secrets(self):
 		ts = engine.to_playwright_ts("t", [("1", {"action": "fill", "selector": "#pw", "value": "{{pw}}"})],
-		                             {"pw": "hunter2", "u": "bo"}, {"pw"}, "https://x.io")
+			{"pw": "hunter2", "u": "bo"}, {"pw"}, "https://x.io")
 		self.assertNotIn("hunter2", ts)
 		self.assertIn('process.env["pw"]', ts)
 		self.assertIn('vars["pw"]', ts)
@@ -205,6 +207,19 @@ class TestBrowser(unittest.TestCase):
 			{"action": "assert_title", "value": "Demo"}]
 		status, _e, _t, results = self.run_steps(steps, {}, {"keep_going": 1})
 		self.assertEqual((status, [r["status"] for r in results]), ("Failed", ["Passed", "Failed", "Passed"]))
+
+	def test_login_checks_password_on_the_server(self):
+		seen = []
+
+		def login(user, password):
+			seen.append((user, password))
+			raise ValueError("Incorrect password")
+
+		status, _e, _t, results = self.run_steps([{"action": "login", "selector": "bo", "value": "{{pw}}"}], {"pw": "s3cret"},
+			{"login_session": login})
+		self.assertEqual(seen, [("bo", "s3cret")])  # the password went to the server check, never into the page
+		self.assertEqual(status, "Failed")
+		self.assertIn("Login failed for bo: Incorrect password", results[0]["error"])
 
 	def test_known_issue(self):
 		known = {"action": "assert_count", "selector": "li", "value": "0", "known_issue": "Actual value: 2"}

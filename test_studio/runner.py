@@ -149,6 +149,17 @@ def execute_run(run_name, debug=False, breakpoints=None):
 		variables, secrets, _keys = _collect_vars(suite, case)
 		settings = suite.as_dict()
 		settings["keep_going"] = suite.get("keep_going") or case.get("keep_going")
+		made = []  # sessions this run made for its login steps; deleted when it ends
+
+		def login_session(user, password):
+			name = frappe.db.get_value("User", user) or frappe.db.get_value("User", {"username": user}) or user
+			from frappe.utils.password import check_password
+
+			check_password(name, password)  # wrong password: the login step fails, as on the login page
+			made.append(_session_for(name))
+			return made[-1]
+
+		settings["login_session"] = login_session
 		if run.run_as:
 			sid = _session_for(run.run_as)
 			settings["session"] = {"user": run.run_as, "sid": sid}
@@ -159,6 +170,8 @@ def execute_run(run_name, debug=False, breakpoints=None):
 		finally:
 			if run.run_as:
 				frappe.sessions.delete_session(sid, reason="Test Studio run finished")
+			for s in made:
+				frappe.sessions.delete_session(s, reason="Test Studio run finished")
 		# a file too big to keep must not turn a finished run into an Error: keep the result, say what is missing
 		for field, data, filename in (("trace", trace, f"{run.name}-trace.zip"), ("video", video, f"{run.name}.webm")):
 			if data:
@@ -268,6 +281,17 @@ def execute_pipeline(pipeline_run_name):
 # ---------- API ----------
 
 
+def _check_capacity():
+	"""Each run outside the queue is a browser of its own: refuse more than Settings allows at once.
+	Runs 'Running' for over an hour (a crashed process) do not count."""
+	limit = frappe.utils.cint(frappe.db.get_single_value("Test Studio Settings", "max_parallel_runs")) or 3
+	since = frappe.utils.add_to_date(now_datetime(), hours=-1)
+	busy = frappe.db.count("Test Run", {"status": "Running", "started_at": [">", since]})
+	if busy >= limit:
+		frappe.throw(_("{0} runs are already in progress (the most at once is {1}). Try again when one finishes.").format(busy, limit),
+			title=_("Too many runs at once"))
+
+
 @frappe.whitelist()
 def run_test_case(name, debug=0, breakpoints=None, detached=0):
 	"""debug=1 runs in a detached process (it may sit paused) instead of occupying a worker.
@@ -275,6 +299,8 @@ def run_test_case(name, debug=0, breakpoints=None, detached=0):
 	(an automation waiting on the result) and would otherwise wait for its own run."""
 	frappe.has_permission("Test Case", "read", name, throw=True)
 	frappe.has_permission("Test Run", "create", throw=True)
+	if frappe.utils.cint(detached) or frappe.utils.cint(debug):
+		_check_capacity()
 	run = create_run(name)
 	if frappe.utils.cint(detached) and not frappe.utils.cint(debug):
 		frappe.db.commit()  # the detached process must see the new run
