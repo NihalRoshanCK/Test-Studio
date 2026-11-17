@@ -8,7 +8,7 @@ import test_studio_mcp as m
 class TestMcpHelpers(unittest.TestCase):
 	def test_clean_steps(self):
 		out = m.clean_steps([{"action": "set_field", "selector": "Customer", "value": "{{customer}}", "junk": 1},
-		                     {"action": "run_snippet", "snippet": "Order", "inputs": {"discount": 8}}])
+			{"action": "run_snippet", "snippet": "Order", "inputs": {"discount": 8}}])
 		self.assertEqual(out[0], {"action": "set_field", "selector": "Customer", "value": "{{customer}}"})
 		self.assertEqual(json.loads(out[1]["value"]), {"discount": "8"})
 		with self.assertRaises(ValueError):

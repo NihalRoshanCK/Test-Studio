@@ -41,7 +41,7 @@ def create():
 	]
 	for title, tag, prio, steps in cases:
 		frappe.get_doc({"doctype": "Test Case", "title": title, "suite": "TodoMVC Demo", "tags_text": tag,
-		                "priority": prio, "steps": steps}).insert()
+			"priority": prio, "steps": steps}).insert()
 	frappe.get_doc({
 		"doctype": "Test Pipeline", "title": "TodoMVC Release Gate",
 		"stages": [
