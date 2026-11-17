@@ -290,8 +290,14 @@ add_to_apps_screen = [
 		"logo": "/assets/test_studio/images/test-studio-logo.svg",
 		"title": "Test Studio",
 		"route": "/studio",
+		"has_permission": "test_studio.install.has_app_permission",
 	}
 ]
+
+# the role has to exist before the doctypes that grant it permissions are synced
+before_migrate = ["test_studio.install.ensure_role"]
+before_install = ["test_studio.install.ensure_role"]
+after_install = ["test_studio.install.ensure_role"]
 
 website_route_rules = [{"from_route": "/studio/<path:app_path>", "to_route": "studio"}]
 
