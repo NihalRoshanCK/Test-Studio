@@ -531,7 +531,7 @@ def get_run(name):
 
 # what copy_suite may change on the copy; anything else in `settings` is ignored
 SUITE_SETTINGS = ("base_url", "browser", "headless", "default_timeout_ms", "viewport_width", "viewport_height",
-	"record_trace", "record_video", "screenshot_each_step", "read_only")
+	"record_trace", "record_video", "presentation_mode", "screenshot_each_step", "read_only")
 
 
 @frappe.whitelist(methods=["POST"])

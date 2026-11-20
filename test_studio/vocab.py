@@ -1,6 +1,7 @@
 """The step vocabulary and step helpers shared by the MCP server and the QCS Flow agent tools (no frappe import)."""
 
 import json
+import re
 
 ACTIONS = {
 	"login": ("Log in as a user", "selector = user, value = password (use {{vars}}, e.g. {{exec_user}} / {{exec_password}})"),
@@ -45,6 +46,12 @@ def _inputs(step):
 		return {}
 
 
+def _shown(sel):
+	"""A selector as a reader says it: text=Save >> visible=true reads as "Save"."""
+	m = re.fullmatch(r"(?:text|role=\w+\[name)=[\"']?(.+?)[\"']?\]?(?:\s*>>\s*visible=true)?", sel or "")
+	return f'"{m.group(1)}"' if m else sel
+
+
 def sentence(step):
 	"""A step as the Studio reads it, e.g. 'Set Customer to {{customer}}'."""
 	a, sel, val = step.get("action"), step.get("selector") or step.get("target") or "", step.get("value") or ""
@@ -62,6 +69,11 @@ def sentence(step):
 			return f"Run snippet '{step.get('snippet') or step.get('group') or sel}'" + (f" with {given}" if given else "")
 		case "store_url": return f"Remember this page as {{{{{val}}}}}"
 		case "goto": return f"Open {sel or val}"
+		case "assert_visible": return f"Check {_shown(sel)} is on screen"
+		case "assert_text": return f"Check {_shown(sel)} says {val}"
+		case "click": return f"Click {_shown(sel)}"
+		case "fill": return f"Type {val} into {_shown(sel)}"
+		case "wait": return f"Wait {int(val or 1000) / 1000:g}s" if str(val or "1000").isdigit() else "Wait"
 		case _: return " ".join(x for x in (a, sel, f"= {val}" if val else "") if x)
 
 

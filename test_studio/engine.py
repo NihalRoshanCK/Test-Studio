@@ -11,6 +11,8 @@ import tempfile
 import time
 from urllib.parse import urljoin, urlparse
 
+from test_studio import vocab
+
 VAR_RE = re.compile(r"\{\{\s*([\w.-]+)\s*\}\}")
 MAX_SNIPPET_DEPTH = 5
 # Opening a page depends on the server (a cold start, a busy dev server), not on the test: page loads get at least
@@ -513,6 +515,42 @@ def _heal(page, step, variables, base_url, default_timeout):
 		return None
 
 
+# Presentation mode: a run someone will watch on video. Slower actions, a caption bar, the element outlined.
+PRESENT_SLOW_MO_MS, PRESENT_PAUSE_MS = 250, 1400
+OUTLINED = {"click", "dblclick", "fill", "type", "select", "check", "uncheck", "hover", "upload"}
+ASSERT_OUTLINED = {"assert_visible", "assert_text", "assert_value", "assert_count", "wait_for", "store_text"}
+# The caption's words live in data attributes drawn by CSS, so they are not page text: a step's
+# text= selector or assertion can never match the caption itself.
+CAPTION_JS = r"""
+([title, line, note]) => {
+	let bar = document.getElementById('ts-caption');
+	if (!bar) {
+		const css = document.createElement('style');
+		css.textContent = '#ts-caption{position:fixed;left:0;right:0;bottom:0;z-index:2147483647;pointer-events:none;'
+			+ 'background:rgba(17,24,39,.92);color:#fff;font:15px/1.45 system-ui,sans-serif;padding:10px 18px}'
+			+ '#ts-caption::before{content:attr(data-title);display:block;font-weight:700;color:#fbbf24}'
+			+ '#ts-caption::after{content:attr(data-line) "\\A" attr(data-note);white-space:pre-line}';
+		bar = document.createElement('div');
+		bar.id = 'ts-caption';
+		bar.setAttribute('aria-hidden', 'true');
+		document.documentElement.append(css, bar);
+	}
+	Object.assign(bar.dataset, {title, line, note});
+}
+"""
+OUTLINE_JS = "e => { e.scrollIntoView({block: 'center'}); e.style.outline = '3px solid #f59e0b'; e.style.outlineOffset = '2px'; }"
+
+
+def _present(page, title, line, note, target=None):
+	"""Draw the caption (again after a navigation) and outline the step's element. Never fails the step."""
+	try:
+		page.evaluate(CAPTION_JS, [title, line, note])
+		if target is not None:
+			target.first.evaluate(OUTLINE_JS, timeout=1500)
+	except Exception:
+		pass
+
+
 def run_case(steps, variables, secrets, settings, on_step, live=None):
 	"""Run flattened steps in a fresh browser context.
 
@@ -520,7 +558,8 @@ def run_case(steps, variables, secrets, settings, on_step, live=None):
 	viewport_height, record_trace, screenshot_each_step, read_only (block writes from the browser),
 	session ({"user", "sid"}: start signed in as that user; login steps are then skipped),
 	keep_going (do not stop at a failure), record_video, login_session (fn(user, password) -> sid: log in
-	without typing the password in the browser).
+	without typing the password in the browser), presentation_mode (slow, captioned, for a watched video;
+	caption_title heads the caption).
 	on_step(result: dict, screenshot: bytes | None) is called after every step; a passing step on an element
 	carries result["fingerprint"], and a healed one result["healed"] (the selector that worked).
 	live(event, step_no, page) is called with "before"/"after" around each step and "done" at the end;
@@ -531,7 +570,10 @@ def run_case(steps, variables, secrets, settings, on_step, live=None):
 
 	status, error, trace, video = "Passed", "", None, None
 	with sync_playwright() as pw:
-		browser = getattr(pw, settings.get("browser") or "chromium").launch(headless=bool(settings.get("headless", 1)))
+		present = bool(settings.get("presentation_mode"))
+		browser = getattr(pw, settings.get("browser") or "chromium").launch(
+			headless=bool(settings.get("headless", 1)), slow_mo=PRESENT_SLOW_MO_MS if present else 0)
+		total = len(steps)
 		size = {"width": settings.get("viewport_width") or 1280, "height": settings.get("viewport_height") or 720}
 		video_dir = tempfile.mkdtemp(prefix="ts-video-") if settings.get("record_video") else None
 		ctx = browser.new_context(viewport=size, **({"record_video_dir": video_dir, "record_video_size": size} if video_dir else {}))
@@ -581,11 +623,19 @@ def run_case(steps, variables, secrets, settings, on_step, live=None):
 					continue
 				t0, shot = time.monotonic(), None
 				timeout = step_timeout(step, default_timeout)
+				if present:
+					shown_step = {**step, "selector": result["target"], "value": result.get("value", "")}
+					caption = (settings.get("caption_title") or "", f"Step {no} of {total}: {vocab.sentence(shown_step)}",
+						step.get("note") or "")
+					_present(page, *caption, page.locator(result["target"]) if step["action"] in OUTLINED else None)
 				try:
 					fp = _fingerprint(page, step, variables, timeout)
 					if fp is False:  # already waited the full timeout; don't wait again in run_step
 						raise StepError(f"Timed out after {timeout / 1000:.0f}s waiting for {result['target']}")
 					run_step(page, step, variables, settings.get("base_url"), default_timeout, settings.get("login_session"))
+					if present:  # a navigation wipes the caption; draw it again, then let the viewer read the screen
+						_present(page, *caption, page.locator(result["target"]) if step["action"] in ASSERT_OUTLINED else None)
+						page.wait_for_timeout(PRESENT_PAUSE_MS)
 					result["status"] = "Passed"
 					if fp:
 						result["fingerprint"] = fp

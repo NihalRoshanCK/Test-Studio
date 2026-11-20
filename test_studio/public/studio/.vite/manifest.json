@@ -1,51 +1,51 @@
 {
-  "_RunRibbon-Cjm8Qnae.js": {
-    "file": "chunks/RunRibbon-Cjm8Qnae.js",
+  "_RunRibbon-C908cywu.js": {
+    "file": "chunks/RunRibbon-C908cywu.js",
     "name": "RunRibbon",
     "imports": [
       "src/main.js",
       "_format-N1-_XGd2.js"
     ]
   },
-  "_StatusBadge-BWERucDQ.js": {
-    "file": "chunks/StatusBadge-BWERucDQ.js",
+  "_StatusBadge-BjRXQAyG.js": {
+    "file": "chunks/StatusBadge-BjRXQAyG.js",
     "name": "StatusBadge",
     "imports": [
       "_format-N1-_XGd2.js",
       "src/main.js"
     ]
   },
-  "_StatusDot-CmWklC6e.js": {
-    "file": "chunks/StatusDot-CmWklC6e.js",
+  "_StatusDot-DGMHUT9g.js": {
+    "file": "chunks/StatusDot-DGMHUT9g.js",
     "name": "StatusDot",
     "imports": [
       "_format-N1-_XGd2.js",
       "src/main.js"
     ]
   },
-  "_SuiteDialog-CSGcPmiG.js": {
-    "file": "chunks/SuiteDialog-CSGcPmiG.js",
+  "_SuiteDialog-BAROyq1a.js": {
+    "file": "chunks/SuiteDialog-BAROyq1a.js",
     "name": "SuiteDialog",
     "imports": [
       "src/main.js",
       "_api-xRhnkSg5.js",
-      "_plus-DNp5_3Hx.js",
-      "_trash-2-BRvcGCUk.js"
+      "_plus-BANnmFs-.js",
+      "_trash-2-BcLvVXs1.js"
     ]
   },
   "_api-xRhnkSg5.js": {
     "file": "chunks/api-xRhnkSg5.js",
     "name": "api"
   },
-  "_arrow-left-Bv0I7LJ2.js": {
-    "file": "chunks/arrow-left-Bv0I7LJ2.js",
+  "_arrow-left-DPN3o3ZM.js": {
+    "file": "chunks/arrow-left-DPN3o3ZM.js",
     "name": "arrow-left",
     "imports": [
       "src/main.js"
     ]
   },
-  "_chevron-right-D_SWM_lC.js": {
-    "file": "chunks/chevron-right-D_SWM_lC.js",
+  "_chevron-right-RZ_u_Y99.js": {
+    "file": "chunks/chevron-right-RZ_u_Y99.js",
     "name": "chevron-right",
     "imports": [
       "src/main.js"
@@ -55,36 +55,36 @@
     "file": "chunks/format-N1-_XGd2.js",
     "name": "format"
   },
-  "_plus-DNp5_3Hx.js": {
-    "file": "chunks/plus-DNp5_3Hx.js",
+  "_plus-BANnmFs-.js": {
+    "file": "chunks/plus-BANnmFs-.js",
     "name": "plus",
     "imports": [
       "src/main.js"
     ]
   },
-  "_rotate-ccw-Byg-RVgJ.js": {
-    "file": "chunks/rotate-ccw-Byg-RVgJ.js",
+  "_rotate-ccw-Bj4bn4GG.js": {
+    "file": "chunks/rotate-ccw-Bj4bn4GG.js",
     "name": "rotate-ccw",
     "imports": [
       "src/main.js"
     ]
   },
-  "_save-CVvllsWZ.js": {
-    "file": "chunks/save-CVvllsWZ.js",
+  "_save-BWKh4aYX.js": {
+    "file": "chunks/save-BWKh4aYX.js",
     "name": "save",
     "imports": [
       "src/main.js"
     ]
   },
-  "_search-DcxQyK1M.js": {
-    "file": "chunks/search-DcxQyK1M.js",
+  "_search-BDO-XoHv.js": {
+    "file": "chunks/search-BDO-XoHv.js",
     "name": "search",
     "imports": [
       "src/main.js"
     ]
   },
-  "_trash-2-BRvcGCUk.js": {
-    "file": "chunks/trash-2-BRvcGCUk.js",
+  "_trash-2-BcLvVXs1.js": {
+    "file": "chunks/trash-2-BcLvVXs1.js",
     "name": "trash-2",
     "imports": [
       "src/main.js"
@@ -299,7 +299,7 @@
     "src": "node_modules/@fontsource/inter/files/inter-vietnamese-600-normal.woff2"
   },
   "src/main.js": {
-    "file": "studio-6pCC5_7n.js",
+    "file": "studio-DjnWC8Ie.js",
     "name": "main",
     "src": "src/main.js",
     "isEntry": true,
@@ -374,120 +374,120 @@
     ]
   },
   "src/pages/Checks.vue": {
-    "file": "chunks/Checks-CDU0bVH1.js",
+    "file": "chunks/Checks-bAlxEIRJ.js",
     "name": "Checks",
     "src": "src/pages/Checks.vue",
     "isDynamicEntry": true,
     "imports": [
       "src/main.js",
-      "_StatusBadge-BWERucDQ.js",
-      "_StatusDot-CmWklC6e.js",
+      "_StatusBadge-BjRXQAyG.js",
+      "_StatusDot-DGMHUT9g.js",
       "_api-xRhnkSg5.js",
       "_format-N1-_XGd2.js",
-      "_plus-DNp5_3Hx.js",
-      "_chevron-right-D_SWM_lC.js"
+      "_plus-BANnmFs-.js",
+      "_chevron-right-RZ_u_Y99.js"
     ]
   },
   "src/pages/PipelineRun.vue": {
-    "file": "chunks/PipelineRun-BDmfm065.js",
+    "file": "chunks/PipelineRun-PGItVm8d.js",
     "name": "PipelineRun",
     "src": "src/pages/PipelineRun.vue",
     "isDynamicEntry": true,
     "imports": [
       "src/main.js",
-      "_StatusBadge-BWERucDQ.js",
+      "_StatusBadge-BjRXQAyG.js",
       "_api-xRhnkSg5.js",
       "_format-N1-_XGd2.js",
-      "_arrow-left-Bv0I7LJ2.js",
-      "_rotate-ccw-Byg-RVgJ.js"
+      "_arrow-left-DPN3o3ZM.js",
+      "_rotate-ccw-Bj4bn4GG.js"
     ]
   },
   "src/pages/Pipelines.vue": {
-    "file": "chunks/Pipelines-Bu9h4EsT.js",
+    "file": "chunks/Pipelines-D07sMmA5.js",
     "name": "Pipelines",
     "src": "src/pages/Pipelines.vue",
     "isDynamicEntry": true,
     "imports": [
       "src/main.js",
-      "_StatusDot-CmWklC6e.js",
+      "_StatusDot-DGMHUT9g.js",
       "_api-xRhnkSg5.js",
       "_format-N1-_XGd2.js",
-      "_plus-DNp5_3Hx.js",
-      "_chevron-right-D_SWM_lC.js"
+      "_plus-BANnmFs-.js",
+      "_chevron-right-RZ_u_Y99.js"
     ]
   },
   "src/pages/RunReport.vue": {
-    "file": "chunks/RunReport-BO3S0w8S.js",
+    "file": "chunks/RunReport-BiRHD9tY.js",
     "name": "RunReport",
     "src": "src/pages/RunReport.vue",
     "isDynamicEntry": true,
     "imports": [
       "src/main.js",
-      "_StatusBadge-BWERucDQ.js",
-      "_RunRibbon-Cjm8Qnae.js",
+      "_StatusBadge-BjRXQAyG.js",
+      "_RunRibbon-C908cywu.js",
       "_api-xRhnkSg5.js",
       "_format-N1-_XGd2.js",
-      "_arrow-left-Bv0I7LJ2.js",
-      "_rotate-ccw-Byg-RVgJ.js"
+      "_arrow-left-DPN3o3ZM.js",
+      "_rotate-ccw-Bj4bn4GG.js"
     ]
   },
   "src/pages/Runs.vue": {
-    "file": "chunks/Runs-CZ9C29xS.js",
+    "file": "chunks/Runs-b019gBvX.js",
     "name": "Runs",
     "src": "src/pages/Runs.vue",
     "isDynamicEntry": true,
     "imports": [
       "src/main.js",
-      "_StatusBadge-BWERucDQ.js",
+      "_StatusBadge-BjRXQAyG.js",
       "_api-xRhnkSg5.js",
       "_format-N1-_XGd2.js",
-      "_search-DcxQyK1M.js"
+      "_search-BDO-XoHv.js"
     ]
   },
   "src/pages/Settings.vue": {
-    "file": "chunks/Settings-HrwTiotQ.js",
+    "file": "chunks/Settings-Bw0O4Vih.js",
     "name": "Settings",
     "src": "src/pages/Settings.vue",
     "isDynamicEntry": true,
     "imports": [
       "src/main.js",
       "_api-xRhnkSg5.js",
-      "_trash-2-BRvcGCUk.js",
-      "_save-CVvllsWZ.js"
+      "_trash-2-BcLvVXs1.js",
+      "_save-BWKh4aYX.js"
     ]
   },
   "src/pages/TestList.vue": {
-    "file": "chunks/TestList-CX4m55Vm.js",
+    "file": "chunks/TestList-BcuwKswn.js",
     "name": "TestList",
     "src": "src/pages/TestList.vue",
     "isDynamicEntry": true,
     "imports": [
       "src/main.js",
-      "_StatusBadge-BWERucDQ.js",
-      "_SuiteDialog-CSGcPmiG.js",
+      "_StatusBadge-BjRXQAyG.js",
+      "_SuiteDialog-BAROyq1a.js",
       "_api-xRhnkSg5.js",
       "_format-N1-_XGd2.js",
-      "_plus-DNp5_3Hx.js",
-      "_search-DcxQyK1M.js",
-      "_trash-2-BRvcGCUk.js"
+      "_plus-BANnmFs-.js",
+      "_search-BDO-XoHv.js",
+      "_trash-2-BcLvVXs1.js"
     ]
   },
   "src/pages/Workspace.vue": {
-    "file": "chunks/Workspace-DmJ5IBLr.js",
+    "file": "chunks/Workspace-CY7cRzGt.js",
     "name": "Workspace",
     "src": "src/pages/Workspace.vue",
     "isDynamicEntry": true,
     "imports": [
       "src/main.js",
-      "_RunRibbon-Cjm8Qnae.js",
-      "_StatusBadge-BWERucDQ.js",
+      "_RunRibbon-C908cywu.js",
+      "_StatusBadge-BjRXQAyG.js",
       "_format-N1-_XGd2.js",
-      "_save-CVvllsWZ.js",
-      "_chevron-right-D_SWM_lC.js",
-      "_plus-DNp5_3Hx.js",
-      "_trash-2-BRvcGCUk.js",
-      "_arrow-left-Bv0I7LJ2.js",
-      "_SuiteDialog-CSGcPmiG.js",
+      "_save-BWKh4aYX.js",
+      "_chevron-right-RZ_u_Y99.js",
+      "_plus-BANnmFs-.js",
+      "_trash-2-BcLvVXs1.js",
+      "_arrow-left-DPN3o3ZM.js",
+      "_SuiteDialog-BAROyq1a.js",
       "_api-xRhnkSg5.js"
     ]
   }

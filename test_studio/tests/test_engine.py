@@ -114,6 +114,28 @@ class TestBrowser(unittest.TestCase):
 		self.assertTrue(trace and trace[:2] == b"PK")
 		self.assertTrue(all(r["status"] == "Passed" for r in results))
 
+	def test_presentation_mode_captions_each_step(self):
+		seen = []
+
+		def live(event, no, page):
+			if event == "after":
+				seen.append(page.locator("#ts-caption").evaluate("e => Object.values(e.dataset).join(' | ')"))
+
+		with tempfile.TemporaryDirectory() as d:
+			pathlib.Path(d, "index.html").write_text(PAGE)
+			status, error, _t, _v = engine.run_case(
+				[("1", {"action": "goto", "selector": "index.html"}), ("2", {"action": "fill", "selector": "#pw", "value": "{{pw}}"}),
+					("3", {"action": "click", "selector": "text=Login", "note": "Signs in"})],
+				{"pw": "s3cret"}, ["s3cret"],
+				{"base_url": pathlib.Path(d).as_uri(), "default_timeout_ms": 2000, "presentation_mode": 1, "caption_title": "FR-99 Demo"},
+				lambda r, shot: None, live)
+		self.assertEqual(status, "Passed", error)
+		self.assertEqual(len(seen), 3)
+		self.assertIn("FR-99 Demo", seen[0])
+		self.assertIn("Step 3 of 3", seen[2])
+		self.assertIn("Signs in", seen[2])
+		self.assertNotIn("s3cret", "".join(seen))  # secrets stay masked on screen, so never in a video
+
 	def test_store_and_reuse(self):
 		variables = {"user": "bo"}
 		status, error, _t, _r = self.run_steps([

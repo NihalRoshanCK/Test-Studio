@@ -18,6 +18,9 @@ class TestMcpHelpers(unittest.TestCase):
 
 	def test_sentence(self):
 		self.assertEqual(m.sentence({"action": "set_field", "selector": "Customer", "value": "C-1"}), "Set Customer to C-1")
+		self.assertEqual(m.sentence({"action": "assert_visible", "selector": "text=Pending CEO >> visible=true"}), 'Check "Pending CEO" is on screen')
+		self.assertEqual(m.sentence({"action": "click", "selector": "#save"}), "Click #save")
+		self.assertEqual(m.sentence({"action": "wait", "value": "2500"}), "Wait 2.5s")
 		self.assertEqual(m.sentence({"action": "run_snippet", "snippet": "Order", "value": '{"discount": "8"}'}), "Run snippet 'Order' with discount=8")
 
 
