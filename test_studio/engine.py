@@ -627,6 +627,8 @@ def run_case(steps, variables, secrets, settings, on_step, live=None):
 					shown_step = {**step, "selector": result["target"], "value": result.get("value", "")}
 					caption = (settings.get("caption_title") or "", f"Step {no} of {total}: {vocab.sentence(shown_step)}",
 						step.get("note") or "")
+					if step["action"] == "wait" and step.get("note"):  # a held screen: the note is the whole message
+						caption = (caption[0], step["note"], "")
 					_present(page, *caption, page.locator(result["target"]) if step["action"] in OUTLINED else None)
 				try:
 					fp = _fingerprint(page, step, variables, timeout)
