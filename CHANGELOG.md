@@ -4,6 +4,16 @@ All notable changes to Test Studio. The format follows [Keep a Changelog](https:
 
 ## [Unreleased]
 
+### Added
+- **Presentation mode** for suites that record video: actions run slower, a caption bar names the test, the step and
+  its note, and the element in use is outlined, so a recorded run can be followed by someone watching it. Caption
+  text is drawn from data attributes, so a step's text selector can never match the caption itself. Secrets stay
+  masked in captions.
+- Readable sentences for checks, clicks, typing and waits (`Check "Pending CEO" is on screen`).
+
+### Fixed
+- `login` steps and *Run as* failed on newer Frappe 16 releases, which store a hash of the session id.
+
 ## [0.2.0] - 2026-11-17
 
 ### Security
