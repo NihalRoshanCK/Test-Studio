@@ -33,6 +33,7 @@ ACTIONS = {
 	"assert_url": ("The URL must contain text", "value"),
 	"assert_title": ("The page title must contain text", "value"),
 	"screenshot": ("Add a screenshot to the report", "no inputs"),
+	"viewport": ("Change the screen size, e.g. to phone width", "value = WIDTHxHEIGHT, e.g. 390x844"),
 }
 
 
@@ -72,6 +73,7 @@ def sentence(step):
 		case "assert_visible": return f"Check {_shown(sel)} is on screen"
 		case "assert_hidden": return f"Check {_shown(sel)} is not on screen"
 		case "press": return f"Press {val}"
+		case "viewport": return f"Resize the screen to {val or sel}"
 		case "assert_text": return f"Check {_shown(sel)} says {val}"
 		case "click": return f"Click {_shown(sel)}"
 		case "fill": return f"Type {val} into {_shown(sel)}"

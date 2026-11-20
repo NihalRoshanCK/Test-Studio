@@ -114,6 +114,17 @@ class TestBrowser(unittest.TestCase):
 		self.assertTrue(trace and trace[:2] == b"PK")
 		self.assertTrue(all(r["status"] == "Passed" for r in results))
 
+	def test_viewport(self):
+		status, error, _t, _r = self.run_steps([
+			{"action": "goto", "selector": "index.html"},
+			{"action": "viewport", "value": "390x844"},
+			{"action": "assert_count", "selector": "li", "value": "2"},
+		], {})
+		self.assertEqual(status, "Passed", error)
+		status, error, _t, _r = self.run_steps([{"action": "viewport", "value": "phone"}], {})
+		self.assertEqual(status, "Failed")
+		self.assertIn("WIDTHxHEIGHT", error)
+
 	def test_presentation_mode_captions_each_step(self):
 		seen = []
 

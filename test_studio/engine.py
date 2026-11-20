@@ -284,6 +284,11 @@ def run_step(page, step, variables, base_url, default_timeout, login=None):
 			variables[_var_name(val)] = (el.input_value(timeout=timeout) if tag in ("INPUT", "TEXTAREA", "SELECT") else el.inner_text(timeout=timeout)).strip()
 		case "screenshot":
 			pass  # the caller captures a screenshot for this action
+		case "viewport":  # e.g. 390x844 to show a page at phone width
+			w, _, h = (val or sel or "").lower().partition("x")
+			if not (w.strip().isdigit() and h.strip().isdigit()):
+				raise StepError(f"viewport needs WIDTHxHEIGHT, e.g. 390x844, not '{val or sel}'")
+			page.set_viewport_size({"width": int(w), "height": int(h)})
 		case "login":
 			frappe_login(page, base_url, sel, val, timeout, login)
 		case "logout":

@@ -24,7 +24,7 @@
    "fieldname": "action",
    "fieldtype": "Select",
    "label": "Action",
-   "options": "goto\nclick\ndblclick\nfill\ntype\npress\nselect\ncheck\nuncheck\nhover\nupload\nwait\nwait_for\nassert_visible\nassert_hidden\nassert_text\nassert_value\nassert_url\nassert_title\nassert_count\nstore_url\nstore_text\nscreenshot\nrun_snippet\nlogin\nlogout\nnew_doc\nset_field\nsave\nworkflow\nexpect_status\ncreate_from",
+   "options": "goto\nclick\ndblclick\nfill\ntype\npress\nselect\ncheck\nuncheck\nhover\nupload\nwait\nwait_for\nassert_visible\nassert_hidden\nassert_text\nassert_value\nassert_url\nassert_title\nassert_count\nstore_url\nstore_text\nscreenshot\nviewport\nrun_snippet\nlogin\nlogout\nnew_doc\nset_field\nsave\nworkflow\nexpect_status\ncreate_from",
    "reqd": 1,
    "in_list_view": 1,
    "columns": 2,
