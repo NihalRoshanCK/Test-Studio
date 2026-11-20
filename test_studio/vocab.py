@@ -70,6 +70,8 @@ def sentence(step):
 		case "store_url": return f"Remember this page as {{{{{val}}}}}"
 		case "goto": return f"Open {sel or val}"
 		case "assert_visible": return f"Check {_shown(sel)} is on screen"
+		case "assert_hidden": return f"Check {_shown(sel)} is not on screen"
+		case "press": return f"Press {val}"
 		case "assert_text": return f"Check {_shown(sel)} says {val}"
 		case "click": return f"Click {_shown(sel)}"
 		case "fill": return f"Type {val} into {_shown(sel)}"
