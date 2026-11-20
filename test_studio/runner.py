@@ -107,6 +107,7 @@ def _session_for(user):
 	now, sid = frappe.utils.now(), frappe.generate_hash()
 	# Session() would read the web request and switch this worker's own session, so write the record directly
 	s = object.__new__(Session)
+	s.sid = sid  # newer Frappe stores hash(sid) and reads it from s.sid
 	s.data = frappe._dict(user=user, sid=sid, data=frappe._dict(user=user, session_ip="127.0.0.1", last_updated=now,
 		creation=now, session_expiry=get_expiry_period(), full_name=row.full_name, user_type=row.user_type))
 	s.insert_session_record()
@@ -149,6 +150,7 @@ def execute_run(run_name, debug=False, breakpoints=None):
 		variables, secrets, _keys = _collect_vars(suite, case)
 		settings = suite.as_dict()
 		settings["keep_going"] = suite.get("keep_going") or case.get("keep_going")
+		settings["caption_title"] = case.title
 		made = []  # sessions this run made for its login steps; deleted when it ends
 
 		def login_session(user, password):
