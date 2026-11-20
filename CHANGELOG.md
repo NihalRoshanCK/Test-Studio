@@ -10,6 +10,9 @@ All notable changes to Test Studio. The format follows [Keep a Changelog](https:
   text is drawn from data attributes, so a step's text selector can never match the caption itself. Secrets stay
   masked in captions.
 - Readable sentences for checks, clicks, typing and waits (`Check "Pending CEO" is on screen`).
+- A `viewport` step that changes the screen size during a run, for example to show a page at phone width (`390x844`).
+- Held screens in presentation mode show only their message.
+- Desk sidebar and workspace for Test Studio, with an icon for each link and a Test Studio header icon.
 
 ### Fixed
 - `login` steps and *Run as* failed on newer Frappe 16 releases, which store a hash of the session id.
