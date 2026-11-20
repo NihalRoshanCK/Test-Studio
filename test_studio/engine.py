@@ -516,7 +516,7 @@ def _heal(page, step, variables, base_url, default_timeout):
 
 
 # Presentation mode: a run someone will watch on video. Slower actions, a caption bar, the element outlined.
-PRESENT_SLOW_MO_MS, PRESENT_PAUSE_MS = 250, 1400
+PRESENT_SLOW_MO_MS, PRESENT_PAUSE_MS = 400, 2500  # long enough to read a two-line caption
 OUTLINED = {"click", "dblclick", "fill", "type", "select", "check", "uncheck", "hover", "upload"}
 ASSERT_OUTLINED = {"assert_visible", "assert_text", "assert_value", "assert_count", "wait_for", "store_text"}
 # The caption's words live in data attributes drawn by CSS, so they are not page text: a step's
