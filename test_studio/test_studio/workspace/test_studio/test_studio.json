@@ -1,0 +1,68 @@
+{
+ "doctype": "Workspace",
+ "name": "Test Studio",
+ "label": "Test Studio",
+ "title": "Test Studio",
+ "module": "Test Studio",
+ "public": 1,
+ "type": "Workspace",
+ "icon": "test-studio-soft",
+ "is_hidden": 0,
+ "hide_custom": 0,
+ "standard": 1,
+ "owner": "Administrator",
+ "modified_by": "Administrator",
+ "creation": "2026-11-21 10:00:00",
+ "modified": "2026-11-21 10:00:00",
+ "content": "[{\"id\": \"h\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Test Studio</b></span>\", \"col\": 12}}, {\"id\": \"s0\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Open Studio\", \"col\": 4}}, {\"id\": \"s1\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Test Suites\", \"col\": 4}}, {\"id\": \"s2\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Test Cases\", \"col\": 4}}, {\"id\": \"s3\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Test Runs\", \"col\": 4}}, {\"id\": \"s4\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Pipelines\", \"col\": 4}}, {\"id\": \"s5\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Data Checks\", \"col\": 4}}]",
+ "charts": [],
+ "number_cards": [],
+ "quick_lists": [],
+ "custom_blocks": [],
+ "links": [],
+ "shortcuts": [
+  {
+   "label": "Open Studio",
+   "type": "URL",
+   "url": "/studio"
+  },
+  {
+   "label": "Test Suites",
+   "type": "DocType",
+   "link_to": "Test Suite",
+   "doc_view": "List"
+  },
+  {
+   "label": "Test Cases",
+   "type": "DocType",
+   "link_to": "Test Case",
+   "doc_view": "List"
+  },
+  {
+   "label": "Test Runs",
+   "type": "DocType",
+   "link_to": "Test Run",
+   "doc_view": "List"
+  },
+  {
+   "label": "Pipelines",
+   "type": "DocType",
+   "link_to": "Test Pipeline",
+   "doc_view": "List"
+  },
+  {
+   "label": "Data Checks",
+   "type": "DocType",
+   "link_to": "Data Check",
+   "doc_view": "List"
+  }
+ ],
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Test Studio User"
+  }
+ ]
+}

@@ -283,6 +283,7 @@ app_license = "mit"
 # Test Studio
 app_include_js = "/assets/test_studio/js/test_studio.js"
 app_include_css = "/assets/test_studio/css/test_studio.css"
+app_include_icons = ["/assets/test_studio/icons/test-studio-icons.svg"]
 
 add_to_apps_screen = [
 	{
