@@ -449,11 +449,15 @@ def _status(page):
 def _wait_until(page, done, what, timeout):
 	end = time.monotonic() + timeout / 1000
 	while time.monotonic() < end:
+		if done():  # success first: a notice shown after it (e.g. "Email sent to ...") is information, not failure
+			page.wait_for_timeout(800)
+			if screen_message(page):
+				page.wait_for_timeout(1500)  # readable in the video
+				page.keyboard.press("Escape")
+			return
 		msg = screen_message(page)
 		if msg and "are you sure" not in msg.lower():
 			raise StepError(f"{what} failed: {msg}")
-		if done():
-			return
 		page.wait_for_timeout(200)
 	raise StepError(f"{what} did not finish in {timeout} ms")
 
